@@ -1,0 +1,45 @@
+publiccodeYmlVersion: 0.5.0
+name: jeap-opensearch-client-starter
+applicationSuite: jEAP
+softwareVersion: 1.0.0
+releaseDate: 2026-06-15
+url: "https://github.com/jeap-admin-ch/jeap-opensearch-client-starter.git"
+landingURL: "https://github.com/jeap-admin-ch/jeap"
+platforms:
+  - web
+categories:
+  - application-development
+developmentStatus: stable
+softwareType: library
+organisation:
+  uri: https://ld.admin.ch/office/V.1.7
+  name: Federal Office of Information Technology, Systems and Telecommunication
+description:
+  en:
+    localisedName: jeap-opensearch-client-starter
+    shortDescription: Spring Boot starter for type-safe, authorization-aware OpenSearch read access in jEAP applications
+    longDescription: >
+      jeap-opensearch-client-starter auto-configures an OpenSearchClient and a SearchItemClient that lets jEAP
+      application services query OpenSearch indices defined by IndexType descriptors.
+      It supports both plain HTTP transport (Apache HttpClient 5) and AWS-signed transport (AwsSdk2Transport with
+      DefaultCredentialsProvider), selected automatically based on whether an AWS signing region is configured.
+      Access is restricted by jEAP roles declared on each IndexType, and results are deserialized into the
+      strongly-typed data class of the matching IndexType.
+      The SearchItemClient executes multi-version searches across ISM rollover indices, and UserSearchItemAuthorization
+      integrates with jEAP security for user-based role checks.
+    features:
+      - Auto-configured OpenSearchClient for Apache HTTP and AWS-signed transports
+      - SearchItemClient for multi-version searches across ISM rollover indices
+      - Authorization filter via SearchItemAuthorization and UserSearchItemAuthorization
+      - SearchItemView non-generic result type eliminates wildcard return types from public APIs
+legal:
+  license: Apache-2.0
+maintenance:
+  type: internal
+  contacts:
+    - name: Federal Office of Information Technology, Systems and Telecommunication FOITT
+      email: jeap-community@bit.admin.ch
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - en
