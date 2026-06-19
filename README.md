@@ -1,52 +1,27 @@
 # jeap-opensearch-client-starter
 
-Spring Boot starter for type-safe, authorization-aware read access to OpenSearch indices in jEAP applications.
+Spring Boot starter for type-safe, authorization-aware read access to OpenSearch indices in jEAP
+applications.
 
-## Overview
+## Key Features
 
-This starter auto-configures an `OpenSearchClient` and a `SearchItemClient` that lets application services query OpenSearch indices defined by `IndexType` descriptors. Access is restricted by jEAP roles declared on each `IndexType`, and results are deserialized into the strongly-typed data class of the matching `IndexType`.
+- **Auto-configured client:** `OpenSearchClient` and `SearchItemClient` configured automatically for plain HTTP or AWS SigV4-signed connections
+- **Multi-version search:** Searches across ISM rollover index partitions and dispatches typed deserialization per document by `search_item.major_version`
+- **Authorization:** Pre-check, BP pre-filter, and post-filter based on roles declared on each `IndexType`
+- **User authorization:** `UserSearchItemAuthorization` integration with jEAP security for current-user role checks
+- **Non-generic results:** `SearchItemView` eliminates wildcard return types from public APIs
 
-## Features
+## Documentation
 
-- Auto-configured `OpenSearchClient` for both plain HTTP (Apache) and AWS-signed (`AwsSdk2Transport`) connections
-- `SearchItemClient` for multi-version searches across ISM rollover indices
-- Authorization filter via `SearchItemAuthorization` — items are filtered by the roles declared on the `IndexType`
-- `UserSearchItemAuthorization` integration with jEAP security for user-based role checks
-- `SearchItemView` non-generic result type eliminates wildcard return types from public APIs
+- [Getting started](docs/getting-started.md)
+- [SearchItemClient](docs/search-item-client.md)
+- [Authorization](docs/authorization.md)
+- [Configuration reference](docs/configuration.md)
 
-## Configuration
+## Note
 
-```yaml
-jeap:
-  opensearch:
-    client:
-      connection:
-        uri: https://my-opensearch-cluster:9200
-        # For AWS OpenSearch Service (optional):
-        aws-signing-region: eu-central-2
-```
+This repository is part of the open source distribution of jEAP. See [github.com/jeap-admin-ch/jeap](https://github.com/jeap-admin-ch/jeap) for more information.
 
-## Apache vs AWS transport
+## License
 
-The starter auto-detects which transport to use:
-
-- If `aws-signing-region` is set and the AWS SDK classes are on the classpath, `AwsSdk2Transport` with `DefaultCredentialsProvider` is used.
-- Otherwise, `ApacheHttpClient5Transport` is used.
-
-## Authorization
-
-```java
-@Autowired SearchItemClient searchItemClient;
-@Autowired UserSearchItemAuthorization auth;
-
-List<SearchItemView> results = searchItemClient.searchMultiVersionWithUserAuth(
-        request, auth.forCurrentUser());
-```
-
-## Build
-
-```bash
-mvn verify
-```
-
-Integration tests use Testcontainers and require Docker.
+This repository is Open Source Software licensed under the [Apache License 2.0](./LICENSE).
