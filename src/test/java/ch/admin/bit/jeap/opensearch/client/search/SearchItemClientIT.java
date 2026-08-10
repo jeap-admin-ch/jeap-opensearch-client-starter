@@ -11,7 +11,7 @@ import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch._types.FieldValue;
 import org.opensearch.client.opensearch._types.Refresh;
 import org.opensearch.client.opensearch._types.query_dsl.Query;
-import org.opensearch.testcontainers.OpensearchContainer;
+import org.opensearch.testcontainers.OpenSearchContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -53,7 +53,7 @@ class SearchItemClientIT {
             new TestIndexTypeV2("InspectionTest", List.of("inspection_read", "inspection_read_bp"));
 
     @Container
-    static final OpensearchContainer<?> opensearch = new OpensearchContainer<>(OPENSEARCH_IMAGE);
+    static final OpenSearchContainer<?> opensearch = new OpenSearchContainer<>(OPENSEARCH_IMAGE);
 
     @DynamicPropertySource
     static void registerProperties(DynamicPropertyRegistry registry) {

@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - Update parent from 8.7.0 to 8.7.1
+- update opensearch-testcontainers from 2.1.3 to 4.1.0
 
 ## [2.9.0] - 2026-08-08
 
