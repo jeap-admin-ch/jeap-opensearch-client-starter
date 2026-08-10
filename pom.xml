@@ -39,7 +39,7 @@
 
     <properties>
         <maven.javadoc.skip>false</maven.javadoc.skip>
-        <jeap-opensearch-index-type.version>1.15.0</jeap-opensearch-index-type.version>
+        <jeap-opensearch-index-type.version>1.16.0</jeap-opensearch-index-type.version>
         <jeap-starter.version>24.10.0</jeap-starter.version>
         <opensearch-java.version>3.9.0</opensearch-java.version>
         <opensearch-testcontainers.version>4.1.0</opensearch-testcontainers.version>
