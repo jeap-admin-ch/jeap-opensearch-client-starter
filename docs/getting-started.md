@@ -19,8 +19,8 @@ The version is managed by the jEAP Spring Boot parent. The starter auto-configur
 
 ## 2. Configure the connection
 
-Add the OpenSearch cluster URI to `application.yml`. For AWS OpenSearch Service also set the signing
-region:
+Add the OpenSearch cluster URI to `application.yml`. A URI without a scheme defaults to `https`.
+For AWS OpenSearch Service also set the signing region:
 
 ```yaml
 jeap:

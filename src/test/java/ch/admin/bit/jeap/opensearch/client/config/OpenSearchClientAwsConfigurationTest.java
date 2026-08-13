@@ -37,6 +37,30 @@ class OpenSearchClientAwsConfigurationTest {
     }
 
     @Test
+    void withAwsSigningRegionAndUriWithoutScheme_awsBackedClientIsContributed() {
+        runner.withPropertyValues(
+                        "jeap.opensearch.client.connection.uri=search-foo.eu-central-2.es.amazonaws.com",
+                        "jeap.opensearch.client.connection.aws-signing-region=eu-central-2")
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).hasSingleBean(OpenSearchClient.class);
+                    assertThat(context.getBean(OpenSearchClient.class)._transport())
+                            .isInstanceOf(AwsSdk2Transport.class);
+                });
+    }
+
+    @Test
+    void withAwsSigningRegionAndHttpUri_contextFails() {
+        runner.withPropertyValues(
+                        "jeap.opensearch.client.connection.uri=http://search-foo.example",
+                        "jeap.opensearch.client.connection.aws-signing-region=eu-central-2")
+                .run(context -> {
+                    assertThat(context).hasFailed();
+                    assertThat(context.getStartupFailure()).hasRootCauseInstanceOf(IllegalStateException.class);
+                });
+    }
+
+    @Test
     void withoutAwsSigningRegion_awsConfigDoesNotEngage_defaultPathIsUsed() {
         runner.withPropertyValues(
                         "jeap.opensearch.client.connection.uri=http://localhost:9200")

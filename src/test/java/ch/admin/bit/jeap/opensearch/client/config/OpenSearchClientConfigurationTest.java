@@ -27,6 +27,15 @@ class OpenSearchClientConfigurationTest {
     }
 
     @Test
+    void uriWithoutScheme_defaultsToHttpsForDefaultClient() {
+        runner.withPropertyValues("jeap.opensearch.client.connection.uri=localhost:9200")
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).hasSingleBean(OpenSearchClient.class);
+                });
+    }
+
+    @Test
     void userProvidedOpenSearchClient_shadowsAutoConfiguredDefault() {
         OpenSearchClient custom = mock(OpenSearchClient.class);
 

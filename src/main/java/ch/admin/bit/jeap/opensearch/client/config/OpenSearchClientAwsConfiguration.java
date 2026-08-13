@@ -24,6 +24,8 @@ public class OpenSearchClientAwsConfiguration {
     @ConditionalOnMissingBean(OpenSearchClientFactory.class)
     OpenSearchClientFactory awsOpenSearchClientFactory() {
         return (properties, jsonMapper) -> {
+            OpenSearchConnectionUri connectionUri = OpenSearchConnectionUri.parse(properties.getUri());
+            connectionUri.requireHttpsForAwsSigning();
             JsonMapper openSearchMapper = jsonMapper.rebuild()
                     .disable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS)
                     .build();
@@ -31,7 +33,7 @@ public class OpenSearchClientAwsConfiguration {
             return new OpenSearchClient(
                     new AwsSdk2Transport(
                             httpClient,
-                            properties.getUri(),
+                            connectionUri.hostAndPort(),
                             "es",
                             Region.of(properties.getAwsSigningRegion()),
                             AwsSdk2TransportOptions.builder()

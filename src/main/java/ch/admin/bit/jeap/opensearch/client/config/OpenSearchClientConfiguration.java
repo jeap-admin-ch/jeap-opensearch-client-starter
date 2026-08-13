@@ -31,16 +31,17 @@ public class OpenSearchClientConfiguration {
     private OpenSearchClient createDefaultOpenSearchClient(OpenSearchClientConfigurationProperties properties,
                                                            JsonMapper jsonMapper) {
         try {
+            OpenSearchConnectionUri connectionUri = OpenSearchConnectionUri.parse(properties.getUri());
             JsonMapper openSearchMapper = jsonMapper.rebuild()
                     .disable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS)
                     .build();
             var transport = ApacheHttpClient5TransportBuilder
-                    .builder(HttpHost.create(properties.getUri()))
+                    .builder(HttpHost.create(connectionUri.toUri()))
                     .setMapper(new JacksonJsonpMapper(openSearchMapper))
                     .build();
             return new OpenSearchClient(transport);
         } catch (URISyntaxException e) {
-            throw new IllegalStateException("Invalid OpenSearch URL: " + properties.getUri(), e);
+            throw new IllegalStateException("Invalid OpenSearch URI: " + properties.getUri(), e);
         }
     }
 }
