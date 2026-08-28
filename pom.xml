@@ -31,7 +31,7 @@
 
     <artifactId>jeap-opensearch-client-starter</artifactId>
     <name>jeap-opensearch-client-starter</name>
-    <version>2.22.1-SNAPSHOT</version>
+    <version>2.22.2-SNAPSHOT</version>
     <description>
         Spring-Boot-Starter for type-safe, authorization-aware read access to OpenSearch indices with mappings based
         on jEAP index type descriptors.
@@ -40,7 +40,7 @@
     <properties>
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <jeap-opensearch-index-type.version>1.28.0</jeap-opensearch-index-type.version>
-        <jeap-starter.version>24.23.0</jeap-starter.version>
+        <jeap-starter.version>24.23.1</jeap-starter.version>
     </properties>
 
     <dependencyManagement>
